@@ -55,7 +55,7 @@ Use as seguintes credenciais para fazer login como vendedor:
 ## Acessando a Dashboard como Vendedor
 
 1. Faça login com as credenciais fornecidas.
-2. No menu, selecione "Dashboard". Você será redirecionado para [http://localhost:3000/dashboard](http://localhost:3000/dashboard).
+2. Acesse [http://localhost:3000/dashboard](http://localhost:3000/dashboard).
 
 ## Criando um Produto
 
