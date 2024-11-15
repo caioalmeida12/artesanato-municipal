@@ -4,8 +4,8 @@ Este é um projeto [Next.js](https://nextjs.org) criado com [`create-next-app`](
 
 Primeiro, clone o repositório:
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/caioalmeida12/artesanato-municipal
+cd artesanato-municipal
 ```
 
 Em seguida, instale as dependências:
