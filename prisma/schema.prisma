@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:dev.db?mode=memory&cache=shared"
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  username  String    @unique
+  password  String
+  email     String    @unique
+  role      String    @default("USER")
+  createdAt DateTime  @default(now())
+  orders    Order[]
+  products  Product[]
+  addresses Address[]
+}
+
+model Address {
+  id     Int     @id @default(autoincrement())
+  street String
+  city   String
+  state  String
+  zip    String
+  userId Int
+  user   User    @relation(fields: [userId], references: [id])
+  orders Order[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
+}
+
+model Product {
+  id          Int            @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  categoryId  Int
+  createdAt   DateTime       @default(now())
+  category    Category       @relation(fields: [categoryId], references: [id])
+  images      ProductImage[]
+  orderItems  OrderItem[]
+  userId      Int
+  user        User           @relation(fields: [userId], references: [id])
+  quantity    Int
+}
+
+model ProductImage {
+  id        Int     @id @default(autoincrement())
+  productId Int
+  imageUrl  String
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Order {
+  id           Int         @id @default(autoincrement())
+  userId       Int
+  addressId    Int
+  status       String
+  total        Float
+  shippingCost Float
+  createdAt    DateTime    @default(now())
+  user         User        @relation(fields: [userId], references: [id])
+  address      Address     @relation(fields: [addressId], references: [id])
+  items        OrderItem[]
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  price     Float
+  order     Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model HistoricalContent {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+}
